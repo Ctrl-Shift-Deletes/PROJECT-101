@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Http\Request;
 use App\Models\AddCart;
 use App\Models\Product;
@@ -107,31 +107,19 @@ class CartController extends Controller
         $selectedItems = $request->input('selectedItems');
         $totalPrice = $request->input('totalPrice');
         $paymentMethod = $request->input('paymentMethod');
-        $address = $request->input('address');
-        $phoneNumber = $request->input('phoneNumber');
 
         // Save the transaction
         $transaction = new Transaction();
         $transaction->user_id = auth()->id();
         $transaction->total_price = $totalPrice;
         $transaction->payment_method = $paymentMethod;
-        $transaction->address = $address;
-        $transaction->phone_number = $phoneNumber;
         $transaction->save();
+
+        // Optionally, you can save the items associated with the transaction
+        // if you have a separate table for that or if you want to save it in the transaction record
 
         return response()->json(['message' => 'Transaction saved successfully'], 200);
     }
-
-    public function getReceipt()
-    {
-        $user_id = Auth::id();
-
-        $transactions = Transaction::where('user_id', $user_id)->orderBy('created_at', 'desc')->get();
-
-        return response()->json($transactions, 200);
-    }
-
-
 
 
 

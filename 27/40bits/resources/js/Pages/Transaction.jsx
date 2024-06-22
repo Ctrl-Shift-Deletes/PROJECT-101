@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { usePage, Head } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import axios from 'axios';
 
 const Transaction = ({ auth }) => {
     const { props } = usePage();
     const { selectedItems, totalPrice } = props;
 
     const [paymentMethod, setPaymentMethod] = useState('Cash on Delivery');
-    const [address, setAddress] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
 
     const handleConfirmAndPay = async () => {
         try {
@@ -17,24 +15,16 @@ const Transaction = ({ auth }) => {
                 selectedItems,
                 totalPrice,
                 paymentMethod,
-                address, // Ensure these fields are included
-                phoneNumber, // Ensure these fields are included
             });
-    
             // Handle success (e.g., show a success message or redirect to another page)
             console.log(response.data.message);
-    
-            // Redirect to the dashboard
-            window.location.href = route('dashboard', {
-                selectedItems: selectedItems,
-                totalPrice: totalPrice
-            });
+            // Redirect to Dashboard
+            window.location.href = route('dashboard'); // Replace 'dashboard' with your actual route name
         } catch (error) {
             // Handle error (e.g., show an error message)
             console.error('Error saving transaction:', error);
         }
     };
-    
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -62,30 +52,6 @@ const Transaction = ({ auth }) => {
                             </div>
                         </dl>
                     </div>
-                </div>
-
-                <div className="mb-4 mt-6 text-center">
-                    <label className="block text-sm font-medium text-gray-700">
-                        Address:
-                        <input
-                            type="text"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        />
-                    </label>
-                </div>
-
-                <div className="mb-4 mt-6 text-center">
-                    <label className="block text-sm font-medium text-gray-700">
-                        Cellphone Number:
-                        <input
-                            type="text"
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        />
-                    </label>
                 </div>
 
                 <div className="mb-4 mt-6 text-center">

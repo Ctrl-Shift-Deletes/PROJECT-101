@@ -8,8 +8,7 @@ export default function Dashboard({ auth }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('');
     const [buyMessage, setBuyMessage] = useState({});   
-    const [totalSales, setTotalSales] = useState(0); // State for total sales
-    
+    const [totalSales, setTotalSales] = useState(0);
 
     useEffect(() => {
         fetchProducts();
@@ -24,7 +23,7 @@ export default function Dashboard({ auth }) {
             slideIndex++;
             if (slideIndex > slides.length) { slideIndex = 1; }
             slides[slideIndex - 1].style.display = "block";
-            setTimeout(showSlides, 2000); // Change image every 2 seconds
+            setTimeout(showSlides, 2000);
         };
         showSlides();
     }, []);
@@ -67,9 +66,9 @@ export default function Dashboard({ auth }) {
         axios.post('/add-to-cart', { product_id: productId })
             .then(response => {
                 setBuyMessage(prevState => ({ ...prevState, [productId]: 'Added to Cart' }));
-                fetchProducts(); // Optionally update products list after adding to cart
-                setTotalSales(response.data.totalSales); // Update total sales after adding to cart
-    
+                fetchProducts();
+                setTotalSales(response.data.totalSales);
+
                 setTimeout(() => {
                     setBuyMessage(prevState => ({ ...prevState, [productId]: '' }));
                 }, 1000);
@@ -78,6 +77,7 @@ export default function Dashboard({ auth }) {
                 console.error('Error adding to cart:', error);
             });
     };
+
     
     
     

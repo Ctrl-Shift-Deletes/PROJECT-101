@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { usePage, Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const Transaction = ({ auth }) => {
     const { props } = usePage();
@@ -9,7 +10,8 @@ const Transaction = ({ auth }) => {
 
     const [paymentMethod, setPaymentMethod] = useState('Cash on Delivery');
     const [address, setAddress] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
+    const [cellphone, setCellphone] = useState('');
+    const history = useHistory();
 
     const handleConfirmAndPay = async () => {
         try {
@@ -17,24 +19,35 @@ const Transaction = ({ auth }) => {
                 selectedItems,
                 totalPrice,
                 paymentMethod,
-                address, // Ensure these fields are included
-                phoneNumber, // Ensure these fields are included
+                address,
+                cellphone,
             });
-    
-            // Handle success (e.g., show a success message or redirect to another page)
-            console.log(response.data.message);
-    
-            // Redirect to the dashboard
-            window.location.href = route('dashboard', {
-                selectedItems: selectedItems,
-                totalPrice: totalPrice
+            
+            const transaction = response.data.transaction;
+
+            // Redirect to Receipt with transaction details
+            history.push({
+                pathname: '/receipt',
+                state: {
+                    id: transaction.id,
+                    total_price: transaction.total_price,
+                    payment_method: transaction.payment_method,
+                    address: transaction.address,
+                    cellphone: transaction.cellphone,
+                    created_at: transaction.created_at,
+                },
             });
         } catch (error) {
-            // Handle error (e.g., show an error message)
             console.error('Error saving transaction:', error);
         }
     };
-    
+
+    const handleCellphoneChange = (e) => {
+        const { value } = e.target;
+        if (/^\d*$/.test(value)) {
+            setCellphone(value);
+        }
+    };
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -66,30 +79,6 @@ const Transaction = ({ auth }) => {
 
                 <div className="mb-4 mt-6 text-center">
                     <label className="block text-sm font-medium text-gray-700">
-                        Address:
-                        <input
-                            type="text"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        />
-                    </label>
-                </div>
-
-                <div className="mb-4 mt-6 text-center">
-                    <label className="block text-sm font-medium text-gray-700">
-                        Cellphone Number:
-                        <input
-                            type="text"
-                            value={phoneNumber}
-                            onChange={(e) => setPhoneNumber(e.target.value)}
-                            className="mt-1 block w-full px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-                        />
-                    </label>
-                </div>
-
-                <div className="mb-4 mt-6 text-center">
-                    <label className="block text-sm font-medium text-gray-700">
                         Select Payment Method:
                     </label>
                     <select
@@ -100,6 +89,30 @@ const Transaction = ({ auth }) => {
                         <option value="Cash on Delivery">Cash on Delivery</option>
                         <option value="Gcash">Gcash</option>
                     </select>
+                </div>
+
+                <div className="mb-4 mt-6 text-center">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Address:
+                    </label>
+                    <input
+                        type="text"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        className="mt-1 block w-50 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md mx-auto"
+                    />
+                </div>
+
+                <div className="mb-4 mt-6 text-center">
+                    <label className="block text-sm font-medium text-gray-700">
+                        Cellphone Number:
+                    </label>
+                    <input
+                        type="text"
+                        value={cellphone}
+                        onChange={handleCellphoneChange}
+                        className="mt-1 block w-50 pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md mx-auto"
+                    />
                 </div>
 
                 <div className="mt-4">

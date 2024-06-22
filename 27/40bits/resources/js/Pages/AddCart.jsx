@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 
 const AddCart = ({ auth }) => {
     const [cartItems, setCartItems] = useState([]);
@@ -45,7 +45,10 @@ const AddCart = ({ auth }) => {
         const itemsToDelete = cartItems.filter(item => item.selected).map(item => item.id);
         axios.delete('/delete-items', { data: { ids: itemsToDelete } })
             .then(response => {
-                fetchCartItems(); // Fetch updated cart items after deletion
+                // Remove deleted items from cartItems state
+                const updatedCartItems = cartItems.filter(item => !item.selected);
+                setCartItems(updatedCartItems);
+                updateTotalPrice(updatedCartItems); // Update total price based on the new cart items
             })
             .catch(error => {
                 console.error('Error deleting items:', error);
@@ -71,6 +74,7 @@ const AddCart = ({ auth }) => {
             console.error('Error during checkout:', error);
         });
     };
+    
 
     return (
         <AuthenticatedLayout user={auth.user}>
@@ -113,7 +117,7 @@ const AddCart = ({ auth }) => {
                                             alt={item.product.name}
                                             className="w-20 h-20 object-contain rounded-lg"
                                         />
-                                        <div className="">
+                                        <div className="ml-4">
                                             <h3 className="text-lg text-center font-bold">{item.product.name}</h3>
                                         </div>
                                     </td>

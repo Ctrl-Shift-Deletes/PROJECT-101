@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->decimal('total_price', 8, 2);
             $table->string('payment_method');
-            $table->string('address')->nullable(); // New field for Address
-            $table->string('phone_number')->nullable(); // New field for Phone Number
+            $table->string('address')->nullable();
+            $table->string('cellphone')->nullable();
             $table->timestamps();
         });
     }

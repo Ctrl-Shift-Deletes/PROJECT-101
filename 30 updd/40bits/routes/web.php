@@ -11,10 +11,6 @@ use App\Http\Controllers\CartController;
 use  App\Http\Controllers\SalesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\TransactionController;
-
-Route::get('/transactions', [TransactionController::class, 'index']);
-
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

@@ -11,10 +11,6 @@ use App\Http\Controllers\CartController;
 use  App\Http\Controllers\SalesController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
-use App\Http\Controllers\TransactionController;
-
-Route::get('/transactions', [TransactionController::class, 'index']);
-
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -59,15 +55,9 @@ Route::get('/stocks', function () {
 
 
 //Transaction
-Route::get('/transaction', function () {
-    return Inertia::render('Transaction');
-})->name('transaction');
-
-
 Route::get('/receipt', function () {
     return Inertia::render('Receipt');
 })->name('receipt');
-
 
 //User List
 Route::get('/userlist', function () {

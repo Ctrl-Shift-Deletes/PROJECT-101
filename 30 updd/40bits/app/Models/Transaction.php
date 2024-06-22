@@ -10,7 +10,7 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'total_price', 'payment_method', 'address', 'phone_number',
+        'user_id', 'total_price', 'payment_method'
     ];
 
     // Define the relationship with the User model
