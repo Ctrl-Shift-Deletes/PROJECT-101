@@ -13,8 +13,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\TransactionController;
 
-
-
+Route::middleware('auth')->get('/transactions', [TransactionController::class, 'index']);
 
 
 
@@ -127,7 +126,6 @@ Route::get('/transaction', function (Request $request) {
         'totalPrice' => $totalPrice
     ]);
 })->name('transaction')->middleware('auth');
-Route::middleware('auth')->get('/transactions', [CartController::class, 'getReceipt']);
 
 
 Route::post('/add-to-cart', [CartController::class, 'addToCart']);
