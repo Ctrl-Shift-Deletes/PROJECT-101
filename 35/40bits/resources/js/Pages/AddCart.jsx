@@ -75,7 +75,7 @@ const AddCart = ({ auth }) => {
     return (
         <>
             <Head title="Cart" />
-            <div className="container mx-auto px-4 pt-24 py-8">
+            <div className="container mx-auto px-4 pt-24 py-8"> 
                 <div className="flex flex-col items-center mb-4">
                     <h1 className="text-4xl font-bold text-center mb-3">Shopping Cart</h1>
                 </div>

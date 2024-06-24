@@ -151,9 +151,9 @@ export default function Dashboard({ auth }) {
                     </nav>
                 </aside>
 
-                <div className="flex-1 flex flex-col">
+                <div className="flex-1 flex flex-col relative">
                     <div className="flex justify-between items-center ">
-                        <div className="flex-1 flex justify-end px-4 pr-32">
+                     <div className="flex-1 flex justify-end pr-24">
                             <input 
                                 type="text" 
                                 placeholder="Search..."  
@@ -183,7 +183,7 @@ export default function Dashboard({ auth }) {
                                                 <img src="/assets/header-home-fourth.png" alt="Slide 3" className="w-full rounded-xl border border-gray-300" />
                                             </div>
                                         </div>
-                                        <div className="bg-gray-900 p-4 rounded-lg shadow-md relative">
+                                        <div className="bg-gray-900 p-4 justify-between rounded-lg text-center ">
                                         {/* Category Section */}
                                                 <div className="flex justify-center items-center h-full">
                                                 <div className="flex items-center justify-center mb-4">
@@ -209,7 +209,7 @@ export default function Dashboard({ auth }) {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="flex flex-wrap mx-2 bg-gray-900 pl-5 gap-2 mt-2" style={{ width: '500px', height: '300px' }}>
+                                            <div className="flex flex-wrap mx-2 bg-gray-900 pl-5 gap-2 mt-2" style={{ width: '1100px', height: '300px', overflowY: 'auto'}}>
                                                 {handleSearch().map((product, index) => ( 
                                                     <div key={product.id} className=" text-center bg-gray-900 rounded-2xl shadow-md  p-4 rounded-lg" style={{ width: '200px', height: '340px' }}>
                                                         <div className="bg-gray-500 p-3 rounded-lg shadow-md">
@@ -218,7 +218,7 @@ export default function Dashboard({ auth }) {
                                                                 alt={product.name} 
                                                                 className="w-full h-32 object-contain mb-2" />   
 
-                                                            <h3 className="text-2xl font-semi-bold text-center" style={{ color: "white" }}>{product.name}</h3>
+                                                            <h3 className="text-sm font-semi-bold text-center" style={{ color: "white" }}>{product.name}</h3>
                                                             <p className="text-gray-600 text-center"style={{ color: "white" }}>{product.category}</p>
                                                             <p className="text-green-600 font-bold text-center mb-1">₱{product.price}</p>
                                                             <div className="flex justify-center mb-4">

@@ -57,7 +57,7 @@ export default function AdminDashboard({ auth }) {
         <>
             <Head title="Admin Dashboard" />
             
-            <div className="flex pt-4 pl-9 pb-5 " style={{ height: '800px' , background: '#111827' }}>
+            <div className="flex pt-4 pl-9 pb-5 " style={{ height: '800px' , background: '#111827', overflowY: 'auto' }}>
                 <aside className="bg-gray-700 w-32 flex flex-col items-center py-5 rounded-full">
                     <img
                         src="/assets/logo.JPG"
@@ -205,7 +205,7 @@ export default function AdminDashboard({ auth }) {
                                                     <option value="strategy">Strategy</option>
                                                     <option value="simulation">Simulation</option>
                                                 </select>
-                                                <div className="absolute inset-y-0 left-0 flex items-center pl-2 pointer-events-none">
+                                                <div className="absolute inset-y-0 right-2 flex items-center pl-2 pointer-events-none">
                                                     <svg className="w-5 h-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
                                                     </svg>
@@ -221,7 +221,7 @@ export default function AdminDashboard({ auth }) {
                                                     alt={product.name}
                                                     className="w-full h-32 object-contain rounded-lg mb-2"
                                                 />
-                                                <h3 className="text-2xl font-semi-bold text-center" style={{ color: "white" }}>{product.name}</h3>
+                                                <h3 className="text-sm font-semi-bold text-center" style={{ color: "white" }}>{product.name}</h3>
                                                 <p className="text-sm font-bold"style={{ color: "white" }}>{product.category}</p>
                                                 <p className="text-xl font-bold text-green-500 ">₱ {product.price}</p>
                                             { /* <button onClick={() => handleBuy(product.id)} className="mt-1 px-3 py-1 bg-green-500 text-white rounded-lg">Buy</button> */}
